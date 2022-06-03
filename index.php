@@ -17,7 +17,23 @@ session_start();
 
 <body>
     <?php
+    $_SESSION["plan"] = $plan;
+    $_SESSION["price"] = $price;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $plan = test_input($_POST["plan"]);
+        $price = test_input($_POST["price"]);
+    }
 
+    $_SESSION["plan"] = $plan;
+    $_SESSION["price"] = $price;
+
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
     ?>
 
     <body>
@@ -61,7 +77,7 @@ session_start();
         </header>
         <!-- ////////////////////////////action : form/////////////////////////////// -->
         <section class="info1">
-            <form action="payment.php" method="post" id="package">
+            <form action="payment.php" method="post">
                 <div class="container">
                     <div class="info1_area">
 
@@ -76,19 +92,19 @@ session_start();
                                 <div class="pricing-calculator">
                                     <div class="pricing-input_wrap">
                                         <span>Up to</span>
-                                        <input type="text" id="pricing-input" value="10,000">
+                                        <input type="text" id="price" name="price" value="10,000">
                                     </div>
                                     <div class="pricing-switcher">
-                                        <button type="button" id="choice"><b></b>Annual</button>
-                                        <button type="button" id="choice"><b></b>Monthly</button>
+                                        <input type="button" onClick="divideBy()" id="choice" value="annual"></input>
+                                        <input type="button" onClick="divideBy()" id="choice" value="monthly"></input>
                                     </div>
                                     <div class="pricing-shown">
                                         <!-- <<calculated>> -->
-                                        <h1> Value = </h1>
+                                        Cost = <span name="cost" id="result">$ per month</span>
                                     </div>
                                     <!-- <?php
                                             ?> -->
-                                    <button type="submit" class="block" id="essential"><b></b>Start a Free Trial</button>
+                                    <button type="submit" class="block" name="plan" value="essential"><b>Start a Free Trial</b></button>
                                 </div>
                             </div>
 
@@ -107,16 +123,14 @@ session_start();
                                         <li>AI-powered product recommendation engine</li>
                                         <li>Audience Sync, connecting Google and Facebook Ads</li>
                                     </ul>
-                                    Starting at <b>$199</b>
+                                    Starting at<b>$199</b>
                                     <br><br>
-                                    <button type="submit" class="block" id="jplus">Get Start</button>
+                                    <button type="submit" class="block" name="plan">Get Start</button>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
+                </div>
             </form>
         </section>
 
@@ -134,10 +148,10 @@ session_start();
                         <h2 class="head">What's included in the plans:</h2>
                     </th>
                     <th style="width:20% ; text-align:center;">
-                        <h2 class="head">Essential <br><button type="button" class="block-fit" id="plan">Free Trial</button></h2>
+                        <h2 class="head">Essential <br><button type="submit" class="block-fit" id="plan">Free Trial</button></h2>
                     </th>
                     <th style="width:20% ; text-align:center;">
-                        <h2 class="head">Justuno Plus <br><button type="button" class="block-fit" id="plan">Get Start</button></h2>
+                        <h2 class="head">Justuno Plus <br><button type="submit" class="block-fit" id="plan">Get Start</button></h2>
                     </th>
                 </tr>
                 <tr>
@@ -295,7 +309,15 @@ session_start();
         </footer>
 
         <script>
-
+            function divideBy() {
+                cost = document.getElementsById("price").value;
+                choice = document.getElementById("choice").value;
+                if (choice == "annual") {
+                    document.getElementById("result").innerHTML = cost / 400;
+                } else {
+                    document.getElementById("result").innerHTML = cost / 345;
+                }
+            }
         </script>
 
 
