@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 ?>
 
 <!DOCTYPE HTML>
@@ -16,25 +16,6 @@ session_start();
 </head>
 
 <body>
-    <?php
-    $_SESSION["plan"] = $plan;
-    $_SESSION["price"] = $price;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $plan = test_input($_POST["plan"]);
-        $price = test_input($_POST["price"]);
-    }
-
-    $_SESSION["plan"] = $plan;
-    $_SESSION["price"] = $price;
-
-    function test_input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-    ?>
 
     <body>
         <div class="menubar">
