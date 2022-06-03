@@ -95,12 +95,12 @@ session_start();
                                         <input type="text" id="price" name="price" value="10,000">
                                     </div>
                                     <div class="pricing-switcher">
-                                        <input type="button" onClick="divideBy()" id="choice" value="annual"></input>
-                                        <input type="button" onClick="divideBy()" id="choice" value="monthly"></input>
+                                        <input type="button" onClick="calculator()" id="choice" value="annual"></input>
+                                        <input type="button" onClick="calculator()" id="choice" value="monthly"></input>
                                     </div>
                                     <div class="pricing-shown">
                                         <!-- <<calculated>> -->
-                                        Cost = <span name="cost" id="result">$ per month</span>
+                                        Cost = <span id="result">$ per month</span>
                                     </div>
                                     <!-- <?php
                                             ?> -->
@@ -309,7 +309,7 @@ session_start();
         </footer>
 
         <script>
-            function divideBy() {
+            function calculator() {
                 cost = document.getElementsById("price").value;
                 choice = document.getElementById("choice").value;
                 if (choice == "annual") {
